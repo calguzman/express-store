@@ -1,0 +1,31 @@
+{
+  "name": "express-store",
+  "version": "1.0.0",
+  "description": "Express Store Backend CRUD for Products ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calguzman/express-store.git"
+  },
+  "keywords": [
+    "crud",
+    "nodejs",
+    "products",
+    "store"
+  ],
+  "author": "cguzman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/calguzman/express-store/issues"
+  },
+  "homepage": "https://github.com/calguzman/express-store#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.5"
+  }
+}
