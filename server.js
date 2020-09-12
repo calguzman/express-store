@@ -5,6 +5,7 @@ require('dotenv').config({
 
 const db = require('./db');
 const db_url = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@curso-platzi-shard-00-00.oatkl.mongodb.net:27017,curso-platzi-shard-00-01.oatkl.mongodb.net:27017,curso-platzi-shard-00-02.oatkl.mongodb.net:27017/${process.env.DB_NAME}?ssl=true&replicaSet=atlas-y4sug6-shard-0&authSource=admin&retryWrites=true&w=majority`;
+
 db(db_url); // Connecting to DataBase
 
 const express = require('express');

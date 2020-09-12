@@ -12,10 +12,12 @@ const controller = require('./controller');
 
 router.get('/', async (req, res) => {
   try {
-    productList= await controller.getProducts();
+    const filterProduct = req.query.id || null;
+    productList= await controller.getProducts(filterProduct); 
     response.success(req,res,productList,200);
   } catch (error) {
-    response.error(req,res,`Error: Obteniendo Lista de Productos:${error}`,500);
+    console.error(error);
+    response.error(req,res,`Error: Listing Products`,500);
   }
 });
 
@@ -25,11 +27,41 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    let product = await controller.addProduct(req.body.product);
-    response.success(req,res,product,200);
+    let savedProduct = await controller.addProduct(req.body.product);
+    response.success(req,res,savedProduct,201);
   } catch (error) {
-    response.error(req,res,`Error: Obteniendo Lista de Productos:${error}`,500);
+    response.error(req,res,`Error: Adding Product :${error}`,500);
   }
 });
+
+/* -------------------------------------------------------------------------- */
+/*                               Update Product                               */
+/* -------------------------------------------------------------------------- */
+
+router.patch('/:id', async (req, res) => {
+  try {
+    let id = req.params.id;
+    let product = req.body.product;
+    let updatedProduct = await controller.updateProduct(id, product);
+    response.success(req,res,updatedProduct,200);
+  } catch (error) {
+    response.error(req,res,`Error: Updating Product:${error}`,500);
+  }
+});
+
+/* -------------------------------------------------------------------------- */
+/*                               Delete Product                               */
+/* -------------------------------------------------------------------------- */
+router.put('/:id', async (req, res) => {
+  try {
+    let id = req.params.id;
+    let deleteProduct = await controller.deleteProduct(id);
+    response.success(req,res,deleteProduct,200);
+  } catch (error) {
+    response.error(req,res,`Error: Removing Product:${error}`,500);
+  }
+});
+
+
 
 module.exports = router;

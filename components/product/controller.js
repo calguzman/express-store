@@ -1,3 +1,4 @@
+const { Model } = require('mongoose');
 const storage = require('./storage');
 
 
@@ -10,7 +11,7 @@ function  getProducts(filterProduct) {
     try {
       resolve(await storage.list(filterProduct));
     } catch (error) {
-      return reject(error);
+      reject(error);
     }
   });
 }
@@ -33,7 +34,48 @@ function addProduct(product) {
   })
 }
 
+/* -------------------------------------------------------------------------- */
+/*                               Update Product                               */
+/* -------------------------------------------------------------------------- */
+function updateProduct(id,product) {
+  return new Promise(async (resolve,reject)=>{
+    try {
+      if(!id && product){
+        return reject('Invalid Composition for Product');
+      }
+      // console.log(id);
+      // console.log(product);
+      let updatedProduct = await storage.update(id,product);
+      resolve(updatedProduct);
+
+    } catch (error) {
+       return reject(error);
+    }
+  })
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               Delete Product                               */
+/* -------------------------------------------------------------------------- */
+function deleteProduct(id) {
+  return new Promise(async (resolve,reject)=>{
+    try {
+      if(!id){
+        return reject('Invalid Composition for Product');
+      }    
+      let deletedProduct = await storage.remove(id);
+      resolve("deleted Product");
+    } catch (error) {
+       reject(error);
+    }
+  })
+}
+
+
+
 module.exports = {
   getProducts,
   addProduct,
+  updateProduct,
+  deleteProduct
 }
